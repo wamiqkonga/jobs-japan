@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react' ;
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,38 +9,37 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import Logo from './logo.png';
+import { Link } from 'react-router-dom';
 
-const pages = ['Home', 'Jobs' , 'Contact Us', 'About Us'];
+const pages = [
+  {
+    label:"Home",
+    route:"/",
+  },
+  {
+    label:"Jobs",
+    route:"/jobs",
+  },
+  {
+    label:"Contact Us",
+    route:"/contactus",
+  },
+  {
+    label:"About Us",
+    route:"/aboutus",
+  },
+  ]; 
 
 function ResponsiveAppBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          
-          <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} ><img src={Logo} alt="WIJ" /></Avatar>
+          <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+            <img src={Logo} alt="WIJ" />
+          </Avatar>
           <Typography
             variant="h6"
             noWrap
@@ -56,7 +55,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-          Jobs-Japan
+            Jobs-Japan
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -65,37 +64,29 @@ function ResponsiveAppBar() {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
               color="inherit"
             >
               <MenuIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+             
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.label}>
+                  <Link to ={page.route}>
+                  <Typography textAlign="center">{page.label}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Avatar sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} ><img src={Logo} alt="WIJ" /></Avatar>
+          <Avatar sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+            <img src={Logo} alt="WIJ" />
+          </Avatar>
           <Typography
             variant="h5"
             noWrap
@@ -112,22 +103,24 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-           Jobs-Japan
+            Jobs-Japan
           </Typography>
-          <Box sx={{ flexGrow: 1, justifyContent:"center", display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, justifyContent: "center", display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
+              <Link to ={page.route}>
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' , fontWeight:'600' }}
-              >
-                {page}
+                key={page.label}
+                sx={{ my: 2, color: 'white', display: 'block', fontWeight: '600' }}
+                >
+                {page.label}
               </Button>
+                </Link>
             ))}
           </Box>
         </Toolbar>
-      </Container>
+      </Container> 
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;
