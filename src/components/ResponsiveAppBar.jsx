@@ -1,4 +1,4 @@
-import * as React from 'react' ;
+import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,114 +11,122 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import Logo from './logo.png';
-import { Link } from 'react-router-dom';
+import { Link , useLocation } from 'react-router-dom';
 
 const pages = [
   {
-    label:"Home",
-    route:"/",
+    label: "Home",
+    route: "/",
   },
   {
-    label:"Jobs",
-    route:"/jobs",
+    label: "Jobs",
+    route: "/jobs",
   },
   {
-    label:"Contact Us",
-    route:"/contactus",
+    label: "Contact Us",
+    route: "/contactus",
   },
   {
-    label:"About Us",
-    route:"/aboutus",
+    label: "About Japan",
+    route: "/aboutjapan",
   },
-  ]; 
+];
 
 function ResponsiveAppBar() {
+
+  const location = useLocation();
+
+  const isCurrentRoute = (route) => {
+    return location.pathname === route;
+  };
+   
+  const [menuOpen, setMenuOpen] = React.useState(false);
+
+  const handleMenuOpen = () => {
+    setMenuOpen(true);
+  };
+
+  const handleMenuClose = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Avatar sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-            <img src={Logo} alt="WIJ" />
-          </Avatar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Jobs-Japan
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Avatar sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}>
+              <img src={Logo} alt="WIJ" />
+            </Avatar>
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
+              sx={{
+                mr: 2,
+                display: { xs: 'flex', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color:"wheat",
+                textDecoration: 'none',
+              }}
+            >
+              Jobs-Japan
+            </Typography>
+          </Box>
+          <Box sx={{ flexGrow: 1 }}>
             <IconButton
               size="large"
-              aria-label="account of current user"
+              aria-label="menu"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               color="inherit"
+              onClick={handleMenuOpen}
+              sx={{ display: { xs: 'block', md: 'none' } , marginLeft:"65px" }}
             >
               <MenuIcon />
             </IconButton>
             <Menu
               id="menu-appbar"
-             
-              sx={{
-                display: { xs: 'block', md: 'none' },
+              anchorEl={null}
+              open={menuOpen}
+              onClose={handleMenuClose}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  display: { xs: 'block', md: 'none' },
+                  width: 200,
+                },
               }}
             >
+              
               {pages.map((page) => (
-                <MenuItem key={page.label}>
-                  <Link to ={page.route}>
-                  <Typography textAlign="center">{page.label}</Typography>
+                <MenuItem key={page.label} onClick={handleMenuClose}>
+                  <Link to={page.route} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Typography textAlign="center">{page.label}</Typography>
                   </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <Avatar sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
-            <img src={Logo} alt="WIJ" />
-          </Avatar>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Jobs-Japan
-          </Typography>
-          <Box sx={{ flexGrow: 1, justifyContent: "center", display: { xs: 'none', md: 'flex' } }}>
+
+          
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <Link to ={page.route}>
               <Button
                 key={page.label}
-                sx={{ my: 2, color: 'white', display: 'block', fontWeight: '600' }}
-                >
+                component={Link}
+                to={page.route}
+                sx={{ mx: 1, color: isCurrentRoute(page.route) ? 'black' : 'inherit', fontWeight: '600' }}
+              >
                 {page.label}
               </Button>
-                </Link>
             ))}
           </Box>
         </Toolbar>
-      </Container> 
+      </Container>
     </AppBar>
   );
 }

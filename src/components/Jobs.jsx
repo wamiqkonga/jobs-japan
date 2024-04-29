@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import { Button, Box, Grid, Avatar, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import React, { useState } from 'react';
+import {Grid, Avatar, Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Button } from '@mui/material';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Chip from '@mui/joy/Chip';
@@ -7,9 +7,7 @@ import Typography from '@mui/material/Typography';
 import styled from "styled-components";
 import { useRef } from "react";
 import emailjs from "@emailjs/browser";
-import { Snackbar } from "@mui/material";
 import MuiAlert from "@mui/material/Alert";
-
 
 const jobData = [
   {
@@ -48,6 +46,7 @@ const jobData = [
     imageUrl: 'https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90',
   },
 ];
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -56,86 +55,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
-  z-index: 1;
   align-items: center;
-  @media (max-width: 960px) {
-    padding: 0px;
-  }
+  padding: 20px;
 `;
-
-const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1350px;
-  padding: 0px 0px 80px 0px;
-  gap: 12px;
-  @media (max-width: 960px) {
-    flex-direction: column;
-  }
-`;
-
-const Title = styled.div`
-  font-size: 42px;
-  text-align: center;
-  font-weight: 600;
-  margin-top: 20px;
-  color: ${({ theme }) => theme.text_primary};
-  @media (max-width: 768px) {
-    margin-top: 12px;
-    font-size: 32px;
-  }
-`;
-
-const Desc = styled.div`
-  font-size: 18px;
-  text-align: center;
-  max-width: 600px;
-  color: ${({ theme }) => theme.text_secondary};
-  @media (max-width: 768px) {
-    margin-top: 12px;
-    font-size: 16px;
-  }
-`;
-
-const ContactForm = styled.form`
-  width: 95%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  background-color: ${({ theme }) => theme.card};
-  padding: 32px;
-  border-radius: 16px;
-  box-shadow: rgba(23, 92, 230, 0.15) 0px 4px 24px;
-  margin-top: 28px;
-  gap: 12px;
-`;
-
-const ContactTitle = styled.div`
-  font-size: 24px;
-  margin-bottom: 6px;
-  font-weight: 600;
-  color: ${({ theme }) => theme.text_primary};
-`;
-
-const ContactInput = styled.input`
-  flex: 1;
-  background-color: transparent;
-  border: 1px solid ${({ theme }) => theme.text_secondary};
-  outline: none;
-  font-size: 18px;
-  color: ${({ theme }) => theme.text_primary};
-  border-radius: 12px;
-  padding: 12px 16px;
-  &:focus {
-    border: 1px solid ${({ theme }) => theme.primary};
-  }
-`;
-
 const ContactInputMessage = styled.textarea`
   flex: 1;
   background-color: transparent;
@@ -149,7 +71,25 @@ const ContactInputMessage = styled.textarea`
     border: 1px solid ${({ theme }) => theme.primary};
   }
 `;
-
+const ContactInput = styled.input`
+  flex: 1;
+  background-color: transparent;
+  border: 1px solid ${({ theme }) => theme.text_secondary};
+  outline: none;
+  font-size: 18px;
+  color: ${({ theme }) => theme.text_primary};
+  border-radius: 12px;
+  padding: 12px 16px;
+  &:focus {
+    border: 1px solid ${({ theme }) => theme.primary};
+  }
+`;
+const ContactTitle = styled.div`
+  font-size: 24px;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.text_primary};
+`;
 const ContactButton = styled.input`
   width: 100%;
   text-decoration: none;
@@ -179,11 +119,30 @@ const ContactButton = styled.input`
   font-weight: 600;
 `;
 
-
+const Title = styled(Typography)`
+  font-size: 24px;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 20px;
+`;
+const ContactForm = styled.form`
+  width: 95%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.card};
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: rgba(23, 92, 230, 0.15) 0px 4px 24px;
+  margin-top: 28px;
+  gap: 12px;
+`;
 
 const Jobs = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const formRef = useRef();
 
   const handleApplyNowClick = (job) => {
     setSelectedJob(job);
@@ -194,22 +153,19 @@ const Jobs = () => {
     setOpenDialog(false);
   };
 
-  const [open, setOpen] = React.useState(false);
-  const form = useRef();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     emailjs
       .sendForm(
         "service_ldsgpwo",
         "template_bfokivr",
-        form.current,
+        formRef.current,
         "DuHe1NB46f5YUj9s0"
       )
       .then(
         (result) => {
-          setOpen(true);
-          form.current.reset();
+          setOpenSnackbar(true);
+          formRef.current.reset();
         },
         (error) => {
           console.log(error.text);
@@ -217,59 +173,34 @@ const Jobs = () => {
       );
   };
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   return ( 
-    
-    <Box xs={12} >
-      <Grid container sx={{ backgroundColor: "#C8C8C8", }}>
-        <Grid item xs={12}>
-          <Box spacing={2} justifyContent="center" sx={{padding:"20px"}}>
-                    <Typography variant="h4" sx={{ marginTop: "30px", textAlign: "center", marginBottom: "30px", textDecoration: "underline" }}>Jobs In Japan</Typography>
-                    </Box>
-
-                    </Grid>
-                    <Grid item xs= {12}>
-                    <Box spacing={4} sx={{marginLeft:"280px",}}>
-
-            {jobData.map((job, index) => (
-                <Card
-                key={index}
-                  variant="outlined"
-                  orientation="horizontal"
-                  sx={{
-                    width: 650,
-                    '&:hover': { boxShadow: 'md', borderColor: 'neutral.outlinedHoverBorder' },
-                  }}
-                >
-                  <Avatar
-                   variant='rounded'
-                   src={job.imageUrl}
-                   sx={{ width: 56, height: 56 }}
-                          ></Avatar>
-
-                  <CardContent>
-                    <Typography variant="h6">{job.title}</Typography>
-                    <Typography variant="body2" color="text.secondary">{job.location}</Typography>
-                    <Typography variant="body2" color="text.secondary">{job.description}</Typography>
-                    <Chip variant="contained" color="primary" size="small">
-                      <Button variant="contained" sx={{marginLeft:"450px"}}  onClick={() => handleApplyNowClick(job)}>{job.apply}</Button></Chip>
-                  <Typography></Typography>
-                  </CardContent>
-                </Card>
-            ))}
-                 </Box>
-        </Grid>     
+    <Container>
+      <Title variant="h4" sx={{marginBottom:"20px" , marginTop:"20px"}}>Jobs In Japan</Title>
+      <Grid container spacing={2} justifyContent="center">
+        {jobData.map((job, index) => (
+          <Grid item key={index}>
+            <Card variant="outlined">
+              <Avatar variant="rounded" src={job.imageUrl} sx={{ width: 56, height: 56 }} />
+              <CardContent>
+                <Typography variant="h6">{job.title}</Typography>
+                <Typography variant="body2" color="text.secondary">{job.location}</Typography>
+                <Typography variant="body2" color="text.secondary">{job.description}</Typography>
+                <Chip variant="contained" color="primary" size="small">
+                  <Button variant="contained" onClick={() => handleApplyNowClick(job)}>{job.apply}</Button>
+                </Chip>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Apply for {selectedJob && selectedJob.title}</DialogTitle>
         <DialogContent>
-          
-        <Container>
-      <Wrapper>
-        <Title>Jobs-Japan</Title>
-        <Desc>
-        Connecting Careers, Building Futures
-        </Desc>
-        <ContactForm ref={form} onSubmit={handleSubmit}>
+        <ContactForm ref={ContactForm} onSubmit={handleSubmit}>
           <ContactTitle>Apply For Job</ContactTitle>
           <ContactInput placeholder="Your Email" name="from_email" required/>
           <ContactInput placeholder="Your Name" name="from_name" required/>
@@ -278,25 +209,18 @@ const Jobs = () => {
           <ContactInputMessage placeholder="Cover Letter " rows="4" name="message" required/>
           <ContactButton type="submit" value="Send" />
         </ContactForm>
-        <Snackbar
-          open={open}
-          autoHideDuration={6000} 
-          onClose={() => setOpen(false)}
-        >
-          <Alert severity="info">Email sent successfully!</Alert>
-        </Snackbar>
-      </Wrapper>
-    </Container>
-
-          
-          
+          <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+            <Alert onClose={handleCloseSnackbar} severity="success">
+              Email sent successfully!
+            </Alert>
+          </Snackbar>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog}>Cancel</Button>
           <Button variant="contained" color="primary" onClick={handleCloseDialog}>Submit</Button>
         </DialogActions>
       </Dialog>
-    </Box>
+    </Container>
   );
 }
 
