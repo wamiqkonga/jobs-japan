@@ -2,31 +2,27 @@ import React from 'react';
 import {Button, Container, Grid, IconButton, Stack, Typography} from '@mui/material';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import bg from './japan.jpg';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
-import tokyo from './tokyo.jpg';
-import Osaka from './osaka.jpg';
-import Sapporo from './soporro.jpg';
 
 
 const cardsData = [
   {
     title: 'Osaka',
     description: 'Osaka is a large port city and commercial center on the Japanese island of Honshu. It is known for its modern architecture, nightlife and hearty street food. ',
-    image: Osaka,
+    image: "/assets/osaka.jpg",
   },
   {
     title: 'Sapporo',
     description: 'Sapporo, capital of the mountainous northern Japanese island of Hokkaido, is famous for its beer, skiing and annual Sapporo Snow Festival featuring enormous ice sculptures.',
-    image: Sapporo
+    image: "/assets/soporro.jpg"
   },
   {
     title: 'Tokyo',
     description: 'Tokyo, Japan’s busy capital, mixes the ultramodern and the traditional, from neon-lit skyscrapers to historic temples. ',
-    image: tokyo
+    image: "/assets/tokyo.jpg"
   }
 ];
 
@@ -63,7 +59,7 @@ function Home() {
         xs={12}
         md={6}
         sx={{
-          backgroundImage: `url(${bg})`,
+          backgroundImage: `url("/assets/japan.jpg")`,
           backgroundSize: 'cover',
           backgroundPosition: 'right',
           height: '70vh',
@@ -100,7 +96,7 @@ function Home() {
                   height="250vh" 
                   image={card.image}
                   alt={card.title}
-                  sx={{ objectFit: 'cover' , marginBottom:"2px"}}
+                  sx={{ objectFit: 'cover' , marginBottom:"-15px"}}
                 />
                 <CardContent sx={{ position: 'absolute', bottom: 0, left: 0, right: 0, backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white', padding: '10px', opacity: 0 , marginBottom:"2px"}} className="card-content">
                   <Typography gutterBottom variant="h5" component="div">

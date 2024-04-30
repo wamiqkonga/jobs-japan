@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import {Grid, Avatar, Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Button, Box } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {Grid, Avatar, Dialog, DialogTitle, DialogContent, DialogActions, Snackbar, Button } from '@mui/material';
 import Card from '@mui/joy/Card';
 import CardContent from '@mui/joy/CardContent';
 import Chip from '@mui/joy/Chip';
@@ -9,43 +9,6 @@ import { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import MuiAlert from "@mui/material/Alert";
 
-const jobData = [
-  {
-    title: 'Android Developer',
-    location: 'Exp: 4+ | Remote ',
-    apply: 'Apply Now',
-    description: 'We are seeking an experienced Android developer to join our dynamic team. The ideal candidate will be responsible for the development and maintenance of applications aimed at a vast number of diverse Android devices.',
-    imageUrl: 'https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90',
-  },
-  {
-    title: 'Web Developer',
-    location: 'Exp: 2+ | On-site',
-    apply: 'Apply Now',
-    description: 'We are seeking an experienced Web developer to join our dynamic team. The ideal candidate will be responsible for the development and maintenance of applications aimed at a vast number of diverse  devices.',
-    imageUrl: 'https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90',
-  },
-  {
-    title: 'Java Developer',
-    location: 'Exp: 1+ | On-site',
-    apply: 'Apply Now',
-    description: 'We are seeking an experienced JAVA developer to join our dynamic team. The ideal candidate will be responsible for the development and maintenance of applications aimed at a vast number of diverse  devices.',
-    imageUrl: 'https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90',
-  },
-  {
-    title: 'React JS',
-    location: 'Exp: 1+ | Remote',
-    apply: 'Apply Now',
-    description: 'We are seeking an experienced Web developer to join our dynamic team. The ideal candidate will be responsible for the development and maintenance of applications aimed at a vast number of diverse  devices.',
-    imageUrl: 'https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90',
-  },
-  {
-    title: 'UI/UX Designer',
-    location: 'Exp: 2+ | Remote',
-    apply: 'Apply Now',
-    description: 'We are seeking an experienced Graphic Designer to join our dynamic team. The ideal candidate will be responsible for the development and maintenance of applications aimed at a vast number of diverse  devices.',
-    imageUrl: 'https://images.unsplash.com/photo-1507833423370-a126b89d394b?auto=format&fit=crop&w=90',
-  },
-];
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -138,16 +101,13 @@ const ContactForm = styled.form`
   gap: 12px;
 `;
 
-const Jobs = () => {
+const Products = () => {
+  const [jobData, setJobData] = useState(null)
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const formRef = useRef();
 
-  const handleApplyNowClick = (job) => {
-    setSelectedJob(job);
-    setOpenDialog(true);
-  };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -177,38 +137,37 @@ const Jobs = () => {
     setOpenSnackbar(false);
   };
 
-//   useEffect(()=>{
-//   const getData = async()=>{
-//     try {
-//       const response = await fetch("https://fakestoreapi.com/products/");
-//       const res = await response.json();
-//       setJobData(res)
-//     } catch (error) {
-//       console.error(error);
-//     }
-//   };
-//   getData();
-// },[])
+  useEffect(()=>{
+  const getData = async()=>{
+    try {
+      const response = await fetch("https://fakestoreapi.com/products/");
+      const res = await response.json();
+      setJobData(res)
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  getData();
+},[])
 
   return ( 
-    <Box sx={{padding:{xs:"20px" , md:"10px"}}}>
     <Container>
-      <Title variant="h4" sx={{marginBottom:"20px" , marginTop:"20px"}}>Jobs In Japan</Title>
+      <Title variant="h4" sx={{marginBottom:"20px" , marginTop:"20px"}}>Products <Typography variant='body2'>( API integration Test )</Typography></Title>
       <Grid container spacing={2} justifyContent="center">
-        {jobData.map((job, index) => (
-           <Grid item key={index} xs={12}>
-           <Card variant="outlined" >
-             <Avatar variant="rounded" src={job.imageUrl} sx={{ width: 56, height: 56 }} />
-             <CardContent>
-               <Typography variant="h6">{job.title}</Typography>
-               <Typography variant="body2" color="text.secondary">{job.location}</Typography>
-               <Typography variant="body2" color="text.secondary">{job.description}</Typography>
-               <Chip variant="contained" color="primary" size="small">
-                 <Button variant="contained" onClick={() => handleApplyNowClick(job)}>{job.apply}</Button>
-               </Chip>
-             </CardContent>
-           </Card>
-         </Grid>
+        {jobData?.map((job, index) => (
+          <Grid item key={index}>
+            <Card variant="outlined" sx={{maxWidth:"110vh", width:"100vh"}}>
+              <Avatar variant="rounded" src={job.image} sx={{ width: 56, height: 56 }} />
+              <CardContent>
+                <Typography variant="h6">{job.title}</Typography>
+                <Typography variant="body2" color="text.secondary">{job.location}</Typography>
+                <Typography variant="body2" color="text.secondary">{job.description}</Typography>
+                <Chip variant="contained" color="primary" size="small">
+                
+                </Chip>
+              </CardContent>
+            </Card>
+          </Grid>
         ))}
       </Grid>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
@@ -235,8 +194,7 @@ const Jobs = () => {
         </DialogActions>
       </Dialog>
     </Container>
-    </Box>
   );
 }
 
-export default Jobs;
+export default Products;

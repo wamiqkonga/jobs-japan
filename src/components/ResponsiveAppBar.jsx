@@ -10,7 +10,6 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import Logo from './logo.png';
 import { Link , useLocation } from 'react-router-dom';
 
 const pages = [
@@ -56,7 +55,7 @@ function ResponsiveAppBar() {
         <Toolbar disableGutters>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Avatar sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }}>
-              <img src={Logo} alt="WIJ" />
+              <img src={"/assets/logo.png"} alt="WIJ" />
             </Avatar>
             <Typography
               variant="h6"
@@ -89,17 +88,18 @@ function ResponsiveAppBar() {
               <MenuIcon />
             </IconButton>
             <Menu
-              id="menu-appbar"
-              anchorEl={null}
-              open={menuOpen}
-              onClose={handleMenuClose}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  display: { xs: 'block', md: 'none' },
-                  width: 200,
-                },
-              }}
+             id="menu-appbar"
+             
+             open={menuOpen}
+             onClose={handleMenuClose}
+             anchorOrigin={{
+               vertical: 'top',
+               horizontal: 'right',
+             }}
+             transformOrigin={{
+               vertical: 'top',
+               horizontal: 'right',
+             }}
             >
               
               {pages.map((page) => (

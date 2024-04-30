@@ -6,6 +6,8 @@ import ResponsiveAppBar from './components/ResponsiveAppBar';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import AboutJapan from './components/AboutJapan';
 import Footer from './components/Footer';
+import Products from './components/Products';
+
 function App() {
   return (
     <> 
@@ -17,6 +19,7 @@ function App() {
       <Route path='/Jobs' element ={<Jobs/>}/>
       <Route path='/contactus' element ={<Contact/>}/> 
       <Route path='/aboutjapan' element ={<AboutJapan/>}/> 
+      <Route path='/products' element ={<Products/>}/> 
     </Routes>
     <Footer/>
     </BrowserRouter>
