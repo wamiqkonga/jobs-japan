@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/jobs-japan/static/css/main.1f57acec.css",
+    "main.js": "/jobs-japan/static/js/main.58b31fce.js",
+    "static/js/453.fe1c84eb.chunk.js": "/jobs-japan/static/js/453.fe1c84eb.chunk.js",
+    "index.html": "/jobs-japan/index.html",
+    "main.1f57acec.css.map": "/jobs-japan/static/css/main.1f57acec.css.map",
+    "main.58b31fce.js.map": "/jobs-japan/static/js/main.58b31fce.js.map",
+    "453.fe1c84eb.chunk.js.map": "/jobs-japan/static/js/453.fe1c84eb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1f57acec.css",
+    "static/js/main.58b31fce.js"
+  ]
+}
