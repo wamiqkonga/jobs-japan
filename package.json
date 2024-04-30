@@ -23,7 +23,7 @@
     "tailwindcss": "^3.4.3",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://wamiqkonga.github.io/jobs-japan",
+  "homepage": "https://wamiqkonga.github.io/",
   "scripts": {
     "predeploy": "yarn build",
     "deploy": "gh-pages -d build",

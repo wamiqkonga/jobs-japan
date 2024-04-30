@@ -59,7 +59,7 @@ function Home() {
         xs={12}
         md={6}
         sx={{
-          backgroundImage: `url("/assets/japan.jpg")`,
+          backgroundImage: `url("/assets/japan-min.jpg")`,
           backgroundSize: 'cover',
           backgroundPosition: 'right',
           height: '70vh',
