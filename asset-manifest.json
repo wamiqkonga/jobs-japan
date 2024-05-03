@@ -1,16 +1,28 @@
 {
   "files": {
     "main.css": "/jobs-japan/static/css/main.1f57acec.css",
-    "main.js": "/jobs-japan/static/js/main.ab33cf81.js",
+    "main.js": "/jobs-japan/static/js/main.e4a5fa76.js",
     "static/js/453.fe1c84eb.chunk.js": "/jobs-japan/static/js/453.fe1c84eb.chunk.js",
+    "static/media/img2.jpg": "/jobs-japan/static/media/img2.d3357492976066b59e4f.jpg",
+    "static/media/architecture.jpg": "/jobs-japan/static/media/architecture.423fa96510229f27e323.jpg",
+    "static/media/soporro.jpg": "/jobs-japan/static/media/soporro.f610da469e73372b9607.jpg",
+    "static/media/japan-min.jpg": "/jobs-japan/static/media/japan-min.8cdbd6790fcdbd1cb83a.jpg",
+    "static/media/img3.jpg": "/jobs-japan/static/media/img3.549f7925a126d5ccae9b.jpg",
+    "static/media/img4.jpg": "/jobs-japan/static/media/img4.17c5050029213ef158a3.jpg",
+    "static/media/img1.jpg": "/jobs-japan/static/media/img1.cfba91ce4341f38ea963.jpg",
+    "static/media/handwriting.jpg": "/jobs-japan/static/media/handwriting.93630b9968ea35c4898c.jpg",
     "static/media/osaka.jpg": "/jobs-japan/static/media/osaka.3902f14c8da985939f3e.jpg",
+    "static/media/kimono.jpg": "/jobs-japan/static/media/kimono.1be9e688d476733595ac.jpg",
+    "static/media/food.jpg": "/jobs-japan/static/media/food.4709de138828a2cf48c9.jpg",
+    "static/media/tokyo.jpg": "/jobs-japan/static/media/tokyo.0f9f0a88e5426fd7c11b.jpg",
+    "static/media/logo.png": "/jobs-japan/static/media/logo.455b54130e6abf54a613.png",
     "index.html": "/jobs-japan/index.html",
     "main.1f57acec.css.map": "/jobs-japan/static/css/main.1f57acec.css.map",
-    "main.ab33cf81.js.map": "/jobs-japan/static/js/main.ab33cf81.js.map",
+    "main.e4a5fa76.js.map": "/jobs-japan/static/js/main.e4a5fa76.js.map",
     "453.fe1c84eb.chunk.js.map": "/jobs-japan/static/js/453.fe1c84eb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1f57acec.css",
-    "static/js/main.ab33cf81.js"
+    "static/js/main.e4a5fa76.js"
   ]
 }
